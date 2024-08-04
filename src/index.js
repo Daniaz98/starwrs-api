@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const app = express();
 app.use(express.json());
@@ -52,10 +53,8 @@ app.post("/", async (req, res) => {
   return res.send(film);
 });
 
-app.listen(port, () => {
-  mongoose.connect(
-    "mongodb+srv://user1:2Z0MhzlgngPSuQ0S@starwarsdb.6x594yw.mongodb.net/?retryWrites=true&w=majority&appName=starwarsdb"
-  );
+app.listen(port, async () => {
+  await mongoose.connect(process.env.MONGODB_URI);
 
   console.log(`Funcionando na porta ${port}`);
 });
